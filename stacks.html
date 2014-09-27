@@ -1,0 +1,56 @@
+<head>
+  <title>stacks</title>
+</head>
+
+<body>
+  <div class="ui">
+    <div class="top-bar">
+      <div class="logo">Stacks</div>
+    </div>
+    <div class="workspace">
+      {{> panel}}
+      {{> panel}}
+      {{> panel}}
+      {{> panel}}
+      {{> panel}}
+    </div>
+  </div>
+</body>
+
+<template name="panel">
+  <div class="panel">
+    <div class="panel-header">
+      Gmail
+    </div>
+
+    <div class="items">
+      {{> item}}
+      {{> item}}
+      {{> item}}
+      {{> item}}
+      {{> item}}
+    </div>
+  </div>
+</template>
+
+<template name="item">
+  <div class="item item-gmail-thread">
+    <div class="participants">Slava Kim, Sashko Stubailo</div>
+
+    <div class="title">Which release are we using?</div>
+
+    <div class="content">The app will use the release of Meteor specified with the --release option
+      <a href="#" class="more-link">...more</a>
+    </div>
+
+    <div class="tags">
+      <span class="tag">Phabricator</span>
+    </div>
+
+    <div class="actions">
+      <button>Reply</button>
+      <button>Archive</button>
+      <button>Star</button>
+    </div>
+  </div>
+</template>
