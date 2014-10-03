@@ -6,51 +6,54 @@
   <div class="ui">
     <div class="top-bar">
       <div class="logo">Stacks</div>
+      <button class="js-new-stack">New Stack</button>
+      {{> loginButtons}}
     </div>
     <div class="workspace">
-      {{> panel}}
-      {{> panel}}
-      {{> panel}}
-      {{> panel}}
-      {{> panel}}
+      {{#each stacks}}
+        {{> stack}}
+      {{/each}}
     </div>
   </div>
 </body>
 
-<template name="panel">
-  <div class="panel">
-    <div class="panel-header">
-      Gmail
-    </div>
+<template name="stack">
+  <div class="stack-container {{flippedClass}}">
+    <div class="stack">
+      <div class="stack-front">
+        <div class="stack-header">
+          {{name}}
+          {{query}}
+          <button class="js-delete-stack">X</button>
+          <button class="js-stack-poll">poll</button>
+          <button class="js-flip">flip</button>
+        </div>
 
-    <div class="items">
-      {{> item}}
-      {{> item}}
-      {{> item}}
-      {{> item}}
-      {{> item}}
+        <div class="items">
+          {{#each items}}
+            {{> item}}
+          {{/each}}
+        </div>
+      </div>
+      <div class="stack-back">
+        Hello world!
+      </div>
     </div>
   </div>
 </template>
 
 <template name="item">
-  <div class="item item-gmail-thread">
-    <div class="participants">Slava Kim, Sashko Stubailo</div>
+  <div class="item">
+    <div class="participants">{{participants}}</div>
 
-    <div class="title">Which release are we using?</div>
+    <div class="title">{{title}}</div>
 
-    <div class="content">The app will use the release of Meteor specified with the --release option
-      <a href="#" class="more-link">...more</a>
-    </div>
+    <div class="content">{{content}}</div>
 
     <div class="tags">
-      <span class="tag">Phabricator</span>
-    </div>
-
-    <div class="actions">
-      <button>Reply</button>
-      <button>Archive</button>
-      <button>Star</button>
+      {{#each tags}}
+        <span class="tag">{{this}}</span>
+      {{/each}}
     </div>
   </div>
 </template>

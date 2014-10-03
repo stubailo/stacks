@@ -7,4 +7,10 @@ meteor-platform
 autopublish
 insecure
 less
+accounts-ui
+accounts-google
+accounts-twitter
+http
+sashko:twitter-api
+slava:gmail
 

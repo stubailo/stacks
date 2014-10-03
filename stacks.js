@@ -1,23 +1,53 @@
+Stacks = new Mongo.Collection("stacks");
+Items = new Mongo.Collection("items");
+
 if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault("counter", 0);
-
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get("counter");
+  Template.body.helpers({
+    stacks: function () {
+      return Stacks.find();
     }
   });
 
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set("counter", Session.get("counter") + 1);
+  Template.body.events({
+    "click .js-new-stack": function () {
+      Stacks.insert({
+        userId: "test",
+        name: "Test Stack",
+        query: "#meteorjs"
+      });
     }
   });
-}
 
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
+  Template.stack.helpers({
+    items: function () {
+      return Items.find({stackId: this._id});
+    },
+    flippedClass: function () {
+      if (Session.get("flippedStack") === this._id) {
+        return "flipped";
+      }
+    }
+  });
+
+  Template.stack.events({
+    "click .js-delete-stack": function () {
+      Stacks.remove({_id: this._id});
+    },
+    "click .js-new-item": function () {
+      Items.insert({
+        stackId: this._id,
+        createdAt: new Date()
+      });
+    },
+    "click .js-stack-poll": function () {
+      Meteor.call("updateTwitterStack", this._id);
+    },
+    "click .js-flip": function () {
+      if (Session.get("flippedStack") !== this._id) {
+        Session.set("flippedStack", this._id);
+      } else {
+        Session.set("flippedStack", null);
+      }
+    }
   });
 }
